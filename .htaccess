@@ -1,0 +1,19 @@
+ErrorDocument 400 https://gianxd.rf.gd/error
+ErrorDocument 401 https://gianxd.rf.gd/error
+ErrorDocument 403 https://gianxd.rf.gd/error
+ErrorDocument 404 https://gianxd.rf.gd/error
+ErrorDocument 503 https://gianxd.rf.gd/error
+
+RewriteEngine on
+
+RewriteCond %{SERVER_PORT} ^80$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
+
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{QUERY_STRING} ^(.*)i=[^&]+(.*)$ [NC]
+RewriteRule ^(.*)$ /$1?%1%2 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^ %{REQUEST_URI}.html [NC,L]
